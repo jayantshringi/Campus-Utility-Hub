@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Utility Hub - CS-201 Final Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">CampusHub </div>
+        <button class="mobile-close-btn" id="mobileCloseBtn">✕</button>
+      </div>
+      <div class="logo-sub">MERN Project</div>
+      <nav class="sidebar-nav"><ul id="sidebarNavList"></ul></nav>
+      <div class="sidebar-footer">
+        <div class="developer-tag"><p>Created by JS</p><span class="badge">BCA 5th Sem</span></div>
+      </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      <div class="mobile-title">Campus Utility Hub</div>
+    </header>
+
+    <!-- Main Screens Content -->
+    <main class="main-content" id="mainContent">
+      <!-- Home Dashboard Screen -->
+      <section class="tab-panel active" id="panel-home">
+        <div class="welcome-banner">
+          <div class="welcome-text">
+            <h1>Campus Utility Hub</h1>
+            <p>Everything You Need, Right Where You Are.</p>
+          </div>
+          <div class="welcome-stats">
+            <div class="stat-card"><span class="stat-label">Active Modules</span><span class="stat-value">8</span></div>
+            <div class="stat-card"><span class="stat-label">Project Status</span><span class="stat-value text-success">Approved</span></div>
+          </div>
+        </div>
+        <h2 class="section-title">Quick Access Dashboard</h2>
+        <div class="dashboard-grid" id="homeGridContainer"></div>
+      </section>
+
+      <!-- Smart Attendance Tracker -->
+      <section class="tab-panel" id="panel-attendance">
+        <div class="module-header">
+          <h2>Smart Attendance Tracker</h2>
+          <p class="subtitle">Enter names and log lectures. Keeps tabs on the crucial 75% attendance threshold!</p>
+        </div>
+        <div class="card-layout">
+          <div class="card">
+            <h3>Add New Student</h3>
+            <form id="attendanceForm" class="student-form">
+              <div class="input-group"><label for="studentNameInput">Full Name</label><input type="text" id="studentNameInput" placeholder="e.g. Rachel Green" required></div>
+              <button type="submit" class="btn btn-primary">Add Student</button>
+            </form>
+          </div>
+          <div class="card overflow-auto">
+            <h3>Student Roster & Attendance Logs</h3>
+            <div id="attendanceTableContainer"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CGPA Calculator -->
+      <section class="tab-panel" id="panel-cgpa">
+        <div class="module-header">
+          <h2>SGPA / CGPA Calculator</h2>
+          <p class="subtitle">Enter your course workload. Calculate your grades with dynamic rows and point mapping.</p>
+        </div>
+        <div class="card-layout grid-1-2">
+          <div class="card">
+            <h3>Add Subject Course</h3>
+            <form id="cgpaForm" class="vertical-form">
+              <div class="input-group"><label for="subjectNameInput">Subject Name</label><input type="text" id="subjectNameInput" placeholder="e.g. Data Structures" required></div>
+              <div class="grid-2">
+                <div class="input-group"><label for="creditsInput">Credits</label><input type="number" id="creditsInput" min="1" max="6" value="3" required></div>
+                <div class="input-group">
+                  <label for="gradeInput">Letter Grade</label>
+                  <select id="gradeInput" required>
+                    <option value="O">O (Outstanding - 10)</option><option value="A+">A+ (Excellent - 9)</option>
+                    <option value="A">A (Very Good - 8)</option><option value="B+">B+ (Good - 7)</option>
+                    <option value="B">B (Above Average - 6)</option><option value="C">C (Average - 5)</option>
+                    <option value="P">P (Pass - 4)</option><option value="F">F (Fail - 0)</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success">Add Course</button>
+            </form>
+          </div>
+          <div class="card">
+            <div class="flex-between"><h3>Semesters / Subjects Table</h3><div class="sgpa-badge">Current SGPA: <strong id="sgpaDisplayVal">0.00</strong></div></div>
+            <div id="cgpaTableContainer"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Binary & Number Converter -->
+      <section class="tab-panel" id="panel-converter">
+        <div class="module-header">
+          <h2>Binary & Number Converter</h2>
+          <p class="subtitle">Convert numeric systems manually using pure division and multiplication algorithms.</p>
+        </div>
+        <div class="card narrow-card mx-auto">
+          <h3>Numerical Conversion Unit</h3>
+          <div class="converter-grid">
+            <div class="input-group">
+              <label for="convertInputVal">Enter Number Value</label>
+              <input type="text" id="convertInputVal" placeholder="e.g. 10101 or 42" required>
+              <div class="validation-message text-danger" id="convertValidationMsg"></div>
+            </div>
+            <div class="grid-2">
+              <div class="input-group"><label for="fromBaseSelect">From Base</label><select id="fromBaseSelect"><option value="2">Binary (Base 2)</option><option value="10" selected>Decimal (Base 10)</option></select></div>
+              <div class="input-group">
+                <label for="toBaseSelect">To Base</label>
+                <select id="toBaseSelect">
+                  <option value="2">Binary (Base 2)</option><option value="10">Decimal (Base 10)</option>
+                  <option value="8">Octal (Base 8)</option><option value="16" selected>Hexadecimal (Base 16)</option>
+                </select>
+              </div>
+            </div>
+            <div class="convert-actions"><button class="btn btn-warning" id="btnRunConversion">Convert Now</button></div>
+            <div class="conversion-result-box"><div class="result-label">Result Output:</div><div class="result-text" id="conversionResultOutput">0</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Password Strength Analyzer -->
+      <section class="tab-panel" id="panel-password">
+        <div class="module-header">
+          <h2>Password Strength Analyzer</h2>
+          <p class="subtitle">Analyze credential entropy. Checks against length, casing, numbers, and symbols with live width meters.</p>
+        </div>
+        <div class="card narrow-card mx-auto">
+          <h3>Check Password Integrity</h3>
+          <div class="password-input-wrapper">
+            <input type="password" id="passwordInput" placeholder="Enter password to test...">
+            <button class="password-toggle" id="btnTogglePasswordVisibility"><span id="eyeText">Show</span></button>
+          </div>
+          <div class="strength-meter-container"><div class="strength-meter-bar" id="strengthMeterBar"></div></div>
+          <div class="flex-between strength-status-row"><span>Strength Level: <strong id="strengthLabel" class="text-danger">Weak</strong></span><span id="entropyScore">Score: 0/5</span></div>
+          <ul class="checklist-grid">
+            <li id="rule-length"><span class="rule-icon">❌</span> At least 8 characters</li>
+            <li id="rule-upper"><span class="rule-icon">❌</span> Uppercase letter [A-Z]</li>
+            <li id="rule-lower"><span class="rule-icon">❌</span> Lowercase letter [a-z]</li>
+            <li id="rule-number"><span class="rule-icon">❌</span> Number digit [0-9]</li>
+            <li id="rule-special"><span class="rule-icon">❌</span> Special Character [@$!%*?&]</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Dynamic Quiz System -->
+      <section class="tab-panel" id="panel-quiz">
+        <div class="module-header">
+          <h2>Dynamic Quiz System</h2>
+          <p class="subtitle">Test your campus trivia and programming knowledge. Questions are loaded dynamically from arrays.</p>
+        </div>
+        <div class="card narrow-card mx-auto" id="quizCardWrapper"></div>
+      </section>
+
+      <!-- Expense Splitter -->
+      <section class="tab-panel" id="panel-splitter">
+        <div class="module-header">
+          <h2>Shared Expense Splitter</h2>
+          <p class="subtitle">Tally dorm expenses, canteen bills, and hostel events. Settle dues using transaction paths.</p>
+        </div>
+        <div class="splitter-layout">
+          <div class="card">
+            <h3>1. Participants</h3>
+            <form id="splitterAddPersonForm">
+              <div class="input-group"><input type="text" id="personNameInput" placeholder="Add person..." required></div>
+              <button type="submit" class="btn btn-secondary w-full">Add</button>
+            </form>
+            <ul class="people-list" id="peopleListContainer"></ul>
+          </div>
+          <div class="card">
+            <h3>2. Log Expenses</h3>
+            <form id="splitterAddExpenseForm" class="horizontal-form">
+              <input type="text" id="expenseDescInput" placeholder="What for? (e.g. Pizza)" required>
+              <input type="number" id="expenseAmountInput" placeholder="Amount (₹)" min="1" step="0.01" required>
+              <select id="expensePayerSelect" required></select>
+              <button type="submit" class="btn btn-primary">Log</button>
+            </form>
+            <div class="expense-log-wrapper"><h4>Log Details</h4><ul class="expense-log-list" id="expenseLogList"></ul></div>
+          </div>
+          <div class="card">
+            <h3>3. Split Summary & Debts</h3>
+            <div class="stats-summary-block">
+              <div class="summary-item"><span>Total Expenditure</span><strong id="splitterTotalExpenseVal">₹0.00</strong></div>
+              <div class="summary-item"><span>Per Head Share</span><strong id="splitterPerShareVal">₹0.00</strong></div>
+            </div>
+            <div class="dues-summary-wrapper"><h4>Transactions (Who owes Whom)</h4><div id="splitterSettlementContainer"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Theme Generator Screen -->
+      <section class="tab-panel" id="panel-theme">
+        <div class="module-header">
+          <h2>🎨 Live CSS Theme Generator</h2>
+          <p class="subtitle">Update the styling values of CSS variables dynamically in real-time.</p>
+        </div>
+        <div class="card narrow-card mx-auto">
+          <h3>Customise Theme</h3>
+          <div class="theme-editor-form">
+            <div class="input-group">
+              <label for="themeBgColor">Primary Theme Accent Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" id="themeBgColor" value="#3b82f6">
+                <span id="themeBgColorText">#3b82f6</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="themeFontSize">Base Font Size</label>
+              <div class="range-wrapper">
+                <input type="range" id="themeFontSize" min="12" max="24" value="16">
+                <span id="themeFontSizeText">16px</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="themeRadius">Border Radius</label>
+              <div class="range-wrapper">
+                <input type="range" id="themeRadius" min="0" max="20" value="8">
+                <span id="themeRadiusText">8px</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="themeSpacing">Base Spacing</label>
+              <div class="range-wrapper">
+                <input type="range" id="themeSpacing" min="8" max="32" value="16">
+                <span id="themeSpacingText">16px</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary w-full" id="btnResetCustomTheme">Reset Theme</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typing Speed Test Screen -->
+      <section class="tab-panel" id="panel-typing">
+        <div class="module-header">
+          <h2>⌨️ Typing Speed Tester</h2>
+          <p class="subtitle">Test your typing accuracy and words per minute (WPM). Just start typing inside the block below!</p>
+        </div>
+        <div class="card narrow-card mx-auto">
+          <div class="flex-between align-center mb-4">
+            <h3>Test Panel</h3>
+            <button class="btn btn-primary btn-sm" id="btnTypingRestart">Change Paragraph</button>
+          </div>
+          <div class="typing-text-display-box" id="typingTextDisplay"></div>
+          <textarea id="typingInputField" class="typing-textarea" placeholder="Click here and start typing to begin the timer..."></textarea>
+          <div class="typing-metrics-grid">
+            <div class="metric-card">
+              <span class="metric-val" id="metricWpmVal">0</span>
+              <span class="metric-label">Words/Min</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-val" id="metricAccuracyVal">100%</span>
+              <span class="metric-label">Accuracy</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-val text-danger" id="metricMistakesVal">0</span>
+              <span class="metric-label">Mistakes</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-val" id="metricTimeVal">60s</span>
+              <span class="metric-label">Time Remaining</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
